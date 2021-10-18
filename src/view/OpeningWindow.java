@@ -88,3 +88,5 @@ public class OpeningWindow {
 		frame.getContentPane().add(btnExit);
 	}
 }
+
+// test
