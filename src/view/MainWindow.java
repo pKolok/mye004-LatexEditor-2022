@@ -84,7 +84,6 @@ public class MainWindow {
 	 * Launch the application.
 	 */
 	
-
 	/**
 	 * Create the application.
 	 * @param latexEditorView 
