@@ -1,12 +1,13 @@
 package view;
 
-import java.awt.EventQueue;
+// TODO - remove
+//import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JTextPane;
+//import javax.swing.JTextPane;
 
 import model.Document;
 
@@ -95,7 +96,7 @@ public class MainWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -113,7 +114,9 @@ public class MainWindow {
 		JMenuItem mntmNewFile = new JMenuItem("New file");
 		mntmNewFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ChooseTemplate chooseTemplate = new ChooseTemplate(latexEditorView, "main");
+//				// TODO - remove
+//				ChooseTemplate chooseTemplate = new ChooseTemplate(latexEditorView, "main");
+				ChooseTemplate chooseTemplate = new ChooseTemplate("main");
 				frame.dispose();
 			}
 		});

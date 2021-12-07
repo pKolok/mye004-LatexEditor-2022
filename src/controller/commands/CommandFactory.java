@@ -1,21 +1,24 @@
 package controller.commands;
 
-import java.util.HashMap;
+// TODO - remove
+//import java.util.HashMap;
 
 import model.DocumentManager;
-import model.VersionsManager;
 
 public class CommandFactory {
 	private DocumentManager documentManager;
-	private VersionsManager versionsManager;
+	// TODO - Remove
+	//	private VersionsManager versionsManager;
 	
+//	public CommandFactory(VersionsManager versionsManager) {
+//		super();
+//		this.versionsManager = versionsManager;
+//		documentManager = new DocumentManager();
+//	}
 	
-	public CommandFactory(VersionsManager versionsManager) {
-		super();
-		this.versionsManager = versionsManager;
+	public CommandFactory() {
 		documentManager = new DocumentManager();
 	}
-
 
 	public Command createCommand(String type) {
 		if(type.equals("addLatex")) {

@@ -1,6 +1,7 @@
 package view;
 
-import java.awt.EventQueue;
+// TODO - remove
+//import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
@@ -19,8 +20,16 @@ public class ChooseTemplate {
 	 * Create the application.
 	 * @param latexEditorView 
 	 */
-	public ChooseTemplate(LatexEditorView latexEditorView, String previous) {
-		this.latexEditorView = latexEditorView;
+	// TODO - remove
+	//	public ChooseTemplate(LatexEditorView latexEditorView, String previous) {
+//		this.latexEditorView = latexEditorView;
+//		this.previous = previous;
+//		initialize();
+//		frame.setVisible(true);
+//	}
+	
+	public ChooseTemplate( String previous) {
+		this.latexEditorView = LatexEditorView.getInstance();
 		this.previous = previous;
 		initialize();
 		frame.setVisible(true);

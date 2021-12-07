@@ -9,6 +9,7 @@ import model.Document;
 import model.VersionsManager;
 
 public class LatexEditorView {
+	private static LatexEditorView instance;
 	private LatexEditorController controller;
 	private Document currentDocument;
 	private String type;
@@ -16,6 +17,16 @@ public class LatexEditorView {
 	private String filename;
 	private String strategy;
 	private VersionsManager versionsManager;
+	
+	// Singleton constructor is private
+	private LatexEditorView() { instance = null; }
+	
+	public static LatexEditorView getInstance() {
+		if (instance == null) {
+			instance = new LatexEditorView();
+		}
+		return instance;
+	}
 	
 	public VersionsManager getVersionsManager() {
 		return versionsManager;

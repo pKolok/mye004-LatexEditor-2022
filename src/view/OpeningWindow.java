@@ -41,14 +41,18 @@ public class OpeningWindow {
 	public OpeningWindow() {
 		VersionsStrategy versionsStrategy = new VolatileVersionsStrategy();
 		
-		latexEditorView = new LatexEditorView();
+		// TODO - Remove
+//		latexEditorView = new LatexEditorView();
+		LatexEditorView latexEditorView = LatexEditorView.getInstance();
 		
 		// TODO - remove
 //		VersionsManager versionsManager = new VersionsManager(versionsStrategy, latexEditorView);
 		VersionsManager versionsManager = VersionsManager.getInstance();
-		versionsManager.init(versionsStrategy, latexEditorView);
+		versionsManager.init(versionsStrategy);
 		
-		LatexEditorController controller = new LatexEditorController(versionsManager);
+		// TODO - Remove
+//		LatexEditorController controller = new LatexEditorController(versionsManager);
+		LatexEditorController controller = new LatexEditorController();
 		
 		latexEditorView.setController(controller);
 		latexEditorView.setVersionsManager(versionsManager);
@@ -59,7 +63,7 @@ public class OpeningWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -70,7 +74,8 @@ public class OpeningWindow {
 		JButton btnCreateNewDocument = new JButton("Create New Document");
 		btnCreateNewDocument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChooseTemplate chooseTemplate = new ChooseTemplate(latexEditorView, "opening");
+//				ChooseTemplate chooseTemplate = new ChooseTemplate(latexEditorView, "opening");
+				ChooseTemplate chooseTemplate = new ChooseTemplate("opening");
 				frame.dispose();
 			}
 		});

@@ -1,6 +1,8 @@
 package controller.commands;
 
-import model.VersionsManager;
+// TODO - remove
+//import model.VersionsManager;
+import view.LatexEditorView;
 
 public class EditCommand implements Command {
 	// TODO - Remove
@@ -15,7 +17,10 @@ public class EditCommand implements Command {
 
 	@Override
 	public void execute() {
-		VersionsManager versionsManager = VersionsManager.getInstance();
-		versionsManager.saveContents();
+		// TODO - remove
+//		VersionsManager versionsManager = VersionsManager.getInstance();
+//		versionsManager.saveContents();
+		LatexEditorView latexEditorView = LatexEditorView.getInstance();
+		latexEditorView.saveContents();
 	}
 }

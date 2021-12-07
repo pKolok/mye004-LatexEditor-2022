@@ -2,18 +2,18 @@ package controller;
 
 import java.util.HashMap;
 
-import controller.commands.AddLatexCommand;
-import controller.commands.ChangeVersionsStrategyCommand;
+//import controller.commands.AddLatexCommand;
+//import controller.commands.ChangeVersionsStrategyCommand;
 import controller.commands.Command;
 import controller.commands.CommandFactory;
-import controller.commands.CreateCommand;
-import controller.commands.DisableVersionsManagementCommand;
-import controller.commands.EditCommand;
-import controller.commands.EnableVersionsManagementCommand;
-import controller.commands.LoadCommand;
-import controller.commands.RollbackToPreviousVersionCommand;
-import controller.commands.SaveCommand;
-import model.VersionsManager;
+//import controller.commands.CreateCommand;
+//import controller.commands.DisableVersionsManagementCommand;
+//import controller.commands.EditCommand;
+//import controller.commands.EnableVersionsManagementCommand;
+//import controller.commands.LoadCommand;
+//import controller.commands.RollbackToPreviousVersionCommand;
+//import controller.commands.SaveCommand;
+//import model.VersionsManager;
 
 public class LatexEditorController{
 	private HashMap<String, Command> commands;
@@ -22,8 +22,10 @@ public class LatexEditorController{
 			"changeVersionsStrategy", "enableVersionsManagement", 
 			"disableVersionsManagement", "rollbackToPreviousVersion"};
 	
-	public LatexEditorController(VersionsManager versionsManager) {
-		CommandFactory commandFactory = new CommandFactory(versionsManager);
+//	public LatexEditorController(VersionsManager versionsManager) {
+	public LatexEditorController() {
+//		CommandFactory commandFactory = new CommandFactory(versionsManager);
+		CommandFactory commandFactory = new CommandFactory();
 		
 		commands = new HashMap<String, Command>(); 
 //		commands.put("addLatex", commandFactory.createCommand("addLatex"));
@@ -49,4 +51,5 @@ public class LatexEditorController{
 	public void enact(String command) {
 		commands.get(command).execute();
 	}
+	
 }

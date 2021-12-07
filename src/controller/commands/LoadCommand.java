@@ -1,6 +1,8 @@
 package controller.commands;
 
-import model.VersionsManager;
+//TODO - remove
+//import model.VersionsManager;
+import view.LatexEditorView;
 
 public class LoadCommand implements Command {
 //	private VersionsManager versionsManager;
@@ -23,8 +25,11 @@ public class LoadCommand implements Command {
 
 	@Override
 	public void execute() {
-		VersionsManager versionsManager = VersionsManager.getInstance();
-		versionsManager.loadFromFile();
+		// TODO - remove
+//		VersionsManager versionsManager = VersionsManager.getInstance();
+//		versionsManager.loadFromFile();
+		LatexEditorView latexEditorView = LatexEditorView.getInstance();
+		latexEditorView.loadFromFile();
 	}
 
 }

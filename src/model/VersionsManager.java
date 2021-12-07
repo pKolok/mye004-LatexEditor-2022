@@ -13,7 +13,7 @@ public class VersionsManager {
 	private VersionsStrategy strategy;
 	private LatexEditorView latexEditorView;
 
-	
+	// TODO - Remove
 //	public VersionsManager(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
 //		this.strategy = versionsStrategy;
 //		this.latexEditorView = latexEditorView;
@@ -29,9 +29,9 @@ public class VersionsManager {
 		return instance;
 	}
 	
-	public void init(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
+	public void init(VersionsStrategy versionsStrategy) {
 		this.strategy = versionsStrategy;
-		this.latexEditorView = latexEditorView;
+		this.latexEditorView = LatexEditorView.getInstance();
 	}
 	
 	public boolean isEnabled() {
@@ -51,37 +51,40 @@ public class VersionsManager {
 //		this.strategy = strategy;
 //	}
 	
-	public void setCurrentVersion(Document document) {
-		latexEditorView.setCurrentDocument(document);
-	}
-	
-	public Document setPreviousVersion() {
-		return null;
-	}
-	
-	public void rollbackToPreviousVersion() {
-		
-	}
+	// TODO - remove
+//	public void setCurrentVersion(Document document) {
+//		latexEditorView.setCurrentDocument(document);
+//	}
 
-	public String getType() {
-		// TODO Auto-generated method stub
-		return latexEditorView.getType();
-	}
+	// TODO - remove
+//	public Document setPreviousVersion() {
+//		return null;
+//	}
+//	
+//	public void rollbackToPreviousVersion() {
+//		
+//	}
 
-	public void saveContents() {
-		// TODO Auto-generated method stub
-		latexEditorView.saveContents();
-	}
+	//TODO - remove
+//	public String getType() {
+//		// TODO Auto-generated method stub
+//		return latexEditorView.getType();
+//	}
 
-	public void saveToFile() {
-		// TODO Auto-generated method stub
-		latexEditorView.saveToFile();
-	}
+//	public void saveContents() {
+//		// TODO Auto-generated method stub
+//		latexEditorView.saveContents();
+//	}
 
-	public void loadFromFile() {
-		// TODO Auto-generated method stub
-		latexEditorView.loadFromFile();
-	}
+//	public void saveToFile() {
+//		// TODO Auto-generated method stub
+//		latexEditorView.saveToFile();
+//	}
+
+//	public void loadFromFile() {
+//		// TODO Auto-generated method stub
+//		latexEditorView.loadFromFile();
+//	}
 
 	public void enableStrategy() {
 		// TODO Auto-generated method stub
@@ -149,7 +152,6 @@ public class VersionsManager {
 
 	// TODO - Remove (not used)
 //	public VersionsStrategy getStrategy() {
-//		// TODO Auto-generated method stub
 //		return strategy;
 //	}
 }
