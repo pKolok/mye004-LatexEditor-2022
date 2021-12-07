@@ -3,18 +3,19 @@ package controller.commands;
 import model.VersionsManager;
 
 public class EnableVersionsManagementCommand implements Command {
-	private VersionsManager versionsManager;
+	// TODO - Remove
+//	private VersionsManager versionsManager;
 	
-	public EnableVersionsManagementCommand(VersionsManager versionsManager) {
-		super();
-		this.versionsManager = versionsManager;
-	}
-
+//	public EnableVersionsManagementCommand(VersionsManager versionsManager) {
+//		super();
+//		this.versionsManager = versionsManager;
+//	}
+	
+//	public EnableVersionsManagementCommand() { super();	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		VersionsManager versionsManager = VersionsManager.getInstance();
 		versionsManager.enableStrategy();
 	}
-
 }

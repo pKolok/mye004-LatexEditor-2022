@@ -8,12 +8,28 @@ import model.strategies.VolatileVersionsStrategy;
 import view.LatexEditorView;
 
 public class VersionsManager {
+	private static VersionsManager instance;
 	private boolean enabled;
 	private VersionsStrategy strategy;
 	private LatexEditorView latexEditorView;
 
 	
-	public VersionsManager(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
+//	public VersionsManager(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
+//		this.strategy = versionsStrategy;
+//		this.latexEditorView = latexEditorView;
+//	}
+//	
+	// Singleton constructor is private
+	private VersionsManager() { instance = null; }
+	
+	public static VersionsManager getInstance() {
+		if (instance == null) {
+			instance = new VersionsManager();
+		}
+		return instance;
+	}
+	
+	public void init(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
 		this.strategy = versionsStrategy;
 		this.latexEditorView = latexEditorView;
 	}
@@ -29,10 +45,11 @@ public class VersionsManager {
 	public void disable() {
 		enabled = false;
 	}
-	
-	public void setStrategy(VersionsStrategy strategy) {
-		this.strategy = strategy;
-	}
+
+	// TODO - remove (not used)
+//	public void setStrategy(VersionsStrategy strategy) {
+//		this.strategy = strategy;
+//	}
 	
 	public void setCurrentVersion(Document document) {
 		latexEditorView.setCurrentDocument(document);
@@ -130,8 +147,9 @@ public class VersionsManager {
 		
 	}
 
-	public VersionsStrategy getStrategy() {
-		// TODO Auto-generated method stub
-		return strategy;
-	}
+	// TODO - Remove (not used)
+//	public VersionsStrategy getStrategy() {
+//		// TODO Auto-generated method stub
+//		return strategy;
+//	}
 }

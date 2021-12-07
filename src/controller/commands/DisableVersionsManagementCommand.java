@@ -3,17 +3,19 @@ package controller.commands;
 import model.VersionsManager;
 
 public class DisableVersionsManagementCommand implements Command {
-
-	private VersionsManager versionsManager;
+	// TODO - Remove
+//	private VersionsManager versionsManager;
 	
-	public DisableVersionsManagementCommand(VersionsManager versionsManager) {
-		super();
-		this.versionsManager = versionsManager;
-	}
+//	public DisableVersionsManagementCommand(VersionsManager versionsManager) {
+//		super();
+//		this.versionsManager = versionsManager;
+//	}
+	
+//	public DisableVersionsManagementCommand() { super(); }
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		VersionsManager versionsManager = VersionsManager.getInstance();
 		versionsManager.disable();
 	}
 

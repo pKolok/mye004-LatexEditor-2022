@@ -17,20 +17,32 @@ import model.VersionsManager;
 
 public class LatexEditorController{
 	private HashMap<String, Command> commands;
+	private String[] commandNames = {
+			"addLatex", "create", "edit", "load", "save", 
+			"changeVersionsStrategy", "enableVersionsManagement", 
+			"disableVersionsManagement", "rollbackToPreviousVersion"};
 	
 	public LatexEditorController(VersionsManager versionsManager) {
 		CommandFactory commandFactory = new CommandFactory(versionsManager);
 		
 		commands = new HashMap<String, Command>(); 
-		commands.put("addLatex", commandFactory.createCommand("addLatex"));
-		commands.put("changeVersionsStrategy", commandFactory.createCommand("changeVersionsStrategy"));
-		commands.put("create", commandFactory.createCommand("create"));
-		commands.put("disableVersionsManagement", commandFactory.createCommand("disableVersionsManagement"));
-		commands.put("edit", commandFactory.createCommand("edit"));
-		commands.put("enableVersionsManagement", commandFactory.createCommand("enableVersionsManagement"));
-		commands.put("load", commandFactory.createCommand("load"));
-		commands.put("rollbackToPreviousVersion", commandFactory.createCommand("rollbackToPreviousVersion"));
-		commands.put("save", commandFactory.createCommand("save"));
+//		commands.put("addLatex", commandFactory.createCommand("addLatex"));
+//		commands.put("changeVersionsStrategy",
+//		commandFactory.createCommand("changeVersionsStrategy"));
+//		commands.put("create", commandFactory.createCommand("create"));
+//		commands.put("disableVersionsManagement",
+//		commandFactory.createCommand("disableVersionsManagement"));
+//		commands.put("edit", commandFactory.createCommand("edit"));
+//		commands.put("enableVersionsManagement",
+//		commandFactory.createCommand("enableVersionsManagement"));
+//		commands.put("load", commandFactory.createCommand("load"));
+//		commands.put("rollbackToPreviousVersion",
+//		commandFactory.createCommand("rollbackToPreviousVersion"));
+//		commands.put("save", commandFactory.createCommand("save"));
+		 
+		for (int i = 0; i < commandNames.length; ++i)
+			commands.put(commandNames[i], 
+					commandFactory.createCommand(commandNames[i]));
 		
 	}
 	

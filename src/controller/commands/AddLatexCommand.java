@@ -3,19 +3,19 @@ package controller.commands;
 import model.VersionsManager;
 
 public class AddLatexCommand implements Command  {
-	private VersionsManager versionsManager;
+	// TODO - Remove
+//	private VersionsManager versionsManager;
 	
+//	public AddLatexCommand(VersionsManager versionsManager) {
+//		super();
+//		this.versionsManager = versionsManager;
+//	}
 	
-	public AddLatexCommand(VersionsManager versionsManager) {
-		super();
-		this.versionsManager = versionsManager;
-	}
-
+//	public AddLatexCommand() {super(); }
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		VersionsManager versionsManager = VersionsManager.getInstance();
 		versionsManager.saveContents();
 	}
-
 }
