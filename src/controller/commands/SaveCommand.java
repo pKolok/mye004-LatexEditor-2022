@@ -1,8 +1,9 @@
 package controller.commands;
 
+import controller.LatexEditorController;
 // TODO - remove
 //import model.VersionsManager;
-import view.LatexEditorView;
+//import view.LatexEditorView;
 
 public class SaveCommand implements Command {
 	// TODO Remove
@@ -18,7 +19,11 @@ public class SaveCommand implements Command {
 		// TODO - remove
 //		VersionsManager versionsManager = VersionsManager.getInstance();
 //		versionsManager.saveToFile();
-		LatexEditorView latexEditorView = LatexEditorView.getInstance();
-		latexEditorView.saveToFile();
+//		LatexEditorView latexEditorView = LatexEditorView.getInstance();
+		LatexEditorController latexEditorController = LatexEditorController.getInstance();
+//		latexEditorView.saveToFile();
+//		latexEditorView.getCurrentDocument().save(latexEditorView.getFilename());
+//		latexEditorController.getCurrentDocument().save(latexEditorView.getFilename());
+		latexEditorController.getCurrentDocument().save(latexEditorController.getFilename());
 	}
 }

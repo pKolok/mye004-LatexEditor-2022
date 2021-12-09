@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 //import javax.swing.JTextPane;
 
 import model.Document;
+import model.VersionsManager;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -17,13 +18,17 @@ import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+
+import controller.LatexEditorController;
+
 import javax.swing.JCheckBoxMenuItem;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JEditorPane editorPane = new JEditorPane();
-	private LatexEditorView latexEditorView;
+//	private LatexEditorView latexEditorView;
+	private LatexEditorController latexEditorController;
 	
 	public void editContents(String type) {
 		String contents = editorPane.getText();
@@ -77,8 +82,10 @@ public class MainWindow {
 					"\\end{figure}\n"+after;
 ;
 		}
-		latexEditorView.setText(contents);
-		latexEditorView.getController().enact("addLatex");
+//		latexEditorView.setText(contents);
+		latexEditorController.setText(contents);
+//		latexEditorView.getController().enact("addLatex");
+		latexEditorController.enact("addLatex");
 		editorPane.setText(contents);
 	}
 	/**
@@ -89,8 +96,10 @@ public class MainWindow {
 	 * Create the application.
 	 * @param latexEditorView 
 	 */
-	public MainWindow(LatexEditorView latexEditorView) {
-		this.latexEditorView = latexEditorView;
+//	public MainWindow(LatexEditorView latexEditorView) {
+//		this.latexEditorView = latexEditorView;
+	public MainWindow() {
+		latexEditorController = LatexEditorController.getInstance();
 		initialize();
 		frame.setVisible(true);
 	}
@@ -125,8 +134,12 @@ public class MainWindow {
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				latexEditorView.setText(editorPane.getText());
-				latexEditorView.getController().enact("edit");
+//				latexEditorView.setText(editorPane.getText());
+				latexEditorController.setText(editorPane.getText());
+				// TODO - remove
+//				latexEditorView.getController().enact("edit");
+//				latexEditorView.getController().enact("addLatex");
+				latexEditorController.enact("addLatex");
 			}
 		});
 		mnFile.add(mntmSave);
@@ -140,17 +153,22 @@ public class MainWindow {
 				if(option == JFileChooser.APPROVE_OPTION) {
 					String filename = filechooser.getSelectedFile().toString();
 					
-					latexEditorView.setFilename(filename);
-					latexEditorView.getController().enact("load");
+//					latexEditorView.setFilename(filename);
+					latexEditorController.setFilename(filename);
+//					latexEditorView.getController().enact("load");
+					latexEditorController.enact("load");
 					mnCommands.setEnabled(true);
 					addChapter.setEnabled(true);
-					if(latexEditorView.getType().equals("letterTemplate")) {
+//					if(latexEditorView.getType().equals("letterTemplate")) {
+					if(latexEditorController.getType().equals("letterTemplate")) {
 						mnCommands.setEnabled(false);
 					}
-					if(latexEditorView.getType().equals("articleTemplate")) {
+//					if(latexEditorView.getType().equals("articleTemplate")) {
+					if(latexEditorController.getType().equals("articleTemplate")) {
 						addChapter.setEnabled(false);
 					}
-					editorPane.setText(latexEditorView.getCurrentDocument().getContents());
+//					editorPane.setText(latexEditorView.getCurrentDocument().getContents());
+					editorPane.setText(latexEditorController.getCurrentDocument().getContents());
 				}
 			}
 		});
@@ -166,8 +184,10 @@ public class MainWindow {
 					if(filename.endsWith(".tex") == false) {
 						filename = filename+".tex";
 					}
-					latexEditorView.setFilename(filename);
-					latexEditorView.getController().enact("save");
+//					latexEditorView.setFilename(filename);
+					latexEditorController.setFilename(filename);
+//					latexEditorView.getController().enact("save");
+					latexEditorController.enact("save");
 				}
 				
 			}
@@ -179,7 +199,8 @@ public class MainWindow {
 		
 		
 		menuBar.add(mnCommands);
-		if(latexEditorView.getType().equals("letterTemplate")) {
+//		if(latexEditorView.getType().equals("letterTemplate")) {
+		if(latexEditorController.getType().equals("letterTemplate")) {
 			mnCommands.setEnabled(false);
 		}
 		
@@ -189,7 +210,8 @@ public class MainWindow {
 			}
 		});
 		mnCommands.add(addChapter);
-		if(latexEditorView.getType().equals("articleTemplate")) {
+//		if(latexEditorView.getType().equals("articleTemplate")) {
+		if(latexEditorController.getType().equals("articleTemplate")) {
 			addChapter.setEnabled(false);
 		}
 		
@@ -265,12 +287,17 @@ public class MainWindow {
 		JCheckBoxMenuItem menuStable = new JCheckBoxMenuItem("Stable");
 		menuStable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				latexEditorView.setStrategy("stable");
-				if(latexEditorView.getVersionsManager().isEnabled() == false) {
-					latexEditorView.getController().enact("enableVersionsManagement");
+//				latexEditorView.setStrategy("stable");
+				latexEditorController.setStrategy("stable");
+				VersionsManager versionsManager = VersionsManager.getInstance();
+//				if(latexEditorView.getVersionsManager().isEnabled() == false) {
+				if(versionsManager.isEnabled() == false) {
+//					latexEditorView.getController().enact("enableVersionsManagement");
+					latexEditorController.enact("enableVersionsManagement");
 				}
 				else {
-					latexEditorView.getController().enact("changeVersionsStrategy");
+//					latexEditorView.getController().enact("changeVersionsStrategy");
+					latexEditorController.enact("changeVersionsStrategy");
 				}
 				menuVolatile.setSelected(false);
 				menuStable.setEnabled(false);
@@ -280,13 +307,17 @@ public class MainWindow {
 
 		menuVolatile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				latexEditorView.setStrategy("volatile");
-				if(latexEditorView.getVersionsManager().isEnabled() == false) {
-					latexEditorView.getController().enact("enableVersionsManagement");
+//				latexEditorView.setStrategy("volatile");
+				latexEditorController.setStrategy("volatile");
+				VersionsManager versionsManager = VersionsManager.getInstance();
+//				if(latexEditorView.getVersionsManager().isEnabled() == false) {
+				if(versionsManager.isEnabled() == false) {
+//					latexEditorView.getController().enact("enableVersionsManagement");
+					latexEditorController.enact("enableVersionsManagement");
 				}
 				else {
-					latexEditorView.getController().enact("changeVersionsStrategy");
+//					latexEditorView.getController().enact("changeVersionsStrategy");
+					latexEditorController.enact("changeVersionsStrategy");
 				}
 				menuStable.setSelected(false);
 				menuVolatile.setEnabled(false);
@@ -300,7 +331,8 @@ public class MainWindow {
 		JMenuItem mntmDisable = new JMenuItem("Disable");
 		mntmDisable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				latexEditorView.getController().enact("disableVersionsManagement");
+//				latexEditorView.getController().enact("disableVersionsManagement");
+				latexEditorController.enact("disableVersionsManagement");
 			}
 		});
 		mnStrategy.add(mntmDisable);
@@ -308,8 +340,10 @@ public class MainWindow {
 		JMenuItem mntmRollback = new JMenuItem("Rollback");
 		mntmRollback.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				latexEditorView.getController().enact("rollbackToPreviousVersion");
-				Document doc = latexEditorView.getCurrentDocument();
+//				latexEditorView.getController().enact("rollbackToPreviousVersion");
+				latexEditorController.enact("rollbackToPreviousVersion");
+//				Document doc = latexEditorView.getCurrentDocument();
+				Document doc = latexEditorController.getCurrentDocument();
 				editorPane.setText(doc.getContents());
 			}
 		});
@@ -320,6 +354,7 @@ public class MainWindow {
 		frame.getContentPane().add(scrollPane);
 		scrollPane.setViewportView(editorPane);
 		
-		editorPane.setText(latexEditorView.getCurrentDocument().getContents());
+//		editorPane.setText(latexEditorView.getCurrentDocument().getContents());
+		editorPane.setText(latexEditorController.getCurrentDocument().getContents());
 	}
 }

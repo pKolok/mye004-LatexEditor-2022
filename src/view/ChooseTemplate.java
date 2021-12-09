@@ -5,6 +5,9 @@ package view;
 
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
+
+import controller.LatexEditorController;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -13,7 +16,8 @@ import java.awt.event.ActionEvent;
 public class ChooseTemplate {
 
 	private JFrame frame;
-	private LatexEditorView latexEditorView;
+//	private LatexEditorView latexEditorView;
+	private LatexEditorController latexEditorController;
 	private String previous;
 
 	/**
@@ -29,7 +33,8 @@ public class ChooseTemplate {
 //	}
 	
 	public ChooseTemplate( String previous) {
-		this.latexEditorView = LatexEditorView.getInstance();
+//		this.latexEditorView = LatexEditorView.getInstance();
+		this.latexEditorController = LatexEditorController.getInstance();
 		this.previous = previous;
 		initialize();
 		frame.setVisible(true);
@@ -101,23 +106,30 @@ public class ChooseTemplate {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(book.isSelected()) {
-					latexEditorView.setType("bookTemplate");
+//					latexEditorView.setType("bookTemplate");
+					latexEditorController.setType("bookTemplate");
 				}
 				else if(report.isSelected()) {
-					latexEditorView.setType("reportTemplate");
+//					latexEditorView.setType("reportTemplate");
+					latexEditorController.setType("reportTemplate");
 				}
 				else if(article.isSelected()) {
-					latexEditorView.setType("articleTemplate");
+//					latexEditorView.setType("articleTemplate");
+					latexEditorController.setType("articleTemplate");
 				}
 				else if(letter.isSelected()) {
-					latexEditorView.setType("letterTemplate");
+//					latexEditorView.setType("letterTemplate");
+					latexEditorController.setType("letterTemplate");
 				}
 				else {
-					latexEditorView.setType("emptyTemplate");
+//					latexEditorView.setType("emptyTemplate");
+					latexEditorController.setType("emptyTemplate");
 				}
 
-				latexEditorView.getController().enact("create");
-				MainWindow mainWindow = new MainWindow(latexEditorView);
+//				latexEditorView.getController().enact("create");
+				latexEditorController.enact("create");
+//				MainWindow mainWindow = new MainWindow(latexEditorView);
+				MainWindow mainWindow = new MainWindow();
 				frame.dispose();
 			}
 		});
@@ -128,7 +140,8 @@ public class ChooseTemplate {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(previous.equals("main")) {
-					MainWindow mainWindow = new MainWindow(latexEditorView);
+//					MainWindow mainWindow = new MainWindow(latexEditorView);
+					MainWindow mainWindow = new MainWindow();
 					frame.dispose();
 				}
 				else {

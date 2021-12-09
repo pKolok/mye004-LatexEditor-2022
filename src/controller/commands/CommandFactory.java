@@ -33,9 +33,10 @@ public class CommandFactory {
 		if(type.equals("disableVersionsManagement")) {
 			return new DisableVersionsManagementCommand();
 		}
-		if(type.equals("edit")) {
-			return new EditCommand();
-		}
+		// TODO - remove
+//		if(type.equals("edit")) {
+//			return new EditCommand();
+//		}
 		if(type.equals("enableVersionsManagement")) {
 			return new EnableVersionsManagementCommand();
 		}

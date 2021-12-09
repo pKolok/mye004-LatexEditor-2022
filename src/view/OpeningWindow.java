@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 public class OpeningWindow {
 
 	private JFrame frame;
-	private LatexEditorView latexEditorView;
+//	private LatexEditorView latexEditorView;
 	/**
 	 * Launch the application.
 	 */
@@ -43,7 +43,7 @@ public class OpeningWindow {
 		
 		// TODO - Remove
 //		latexEditorView = new LatexEditorView();
-		LatexEditorView latexEditorView = LatexEditorView.getInstance();
+//		LatexEditorView latexEditorView = LatexEditorView.getInstance();
 		
 		// TODO - remove
 //		VersionsManager versionsManager = new VersionsManager(versionsStrategy, latexEditorView);
@@ -52,10 +52,11 @@ public class OpeningWindow {
 		
 		// TODO - Remove
 //		LatexEditorController controller = new LatexEditorController(versionsManager);
-		LatexEditorController controller = new LatexEditorController();
+//		LatexEditorController controller = new LatexEditorController();
+		LatexEditorController controller = LatexEditorController.getInstance();
 		
-		latexEditorView.setController(controller);
-		latexEditorView.setVersionsManager(versionsManager);
+//		latexEditorView.setController(controller);
+//		latexEditorView.setVersionsManager(versionsManager);
 		
 		initialize();
 		
