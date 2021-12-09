@@ -1,6 +1,10 @@
 package controller;
 
 import java.util.HashMap;
+
+import javax.swing.JEditorPane;
+
+import controller.commands.AddLatexCommand;
 import controller.commands.Command;
 import controller.commands.CommandFactory;
 // TODO - remove
@@ -109,6 +113,10 @@ public class LatexEditorController{
 	
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	
+	public void editContents(JEditorPane editorPane, String string) {
+		((AddLatexCommand) commands.get("addLatex")).editContents(editorPane, string);
 	}
 	
 }
