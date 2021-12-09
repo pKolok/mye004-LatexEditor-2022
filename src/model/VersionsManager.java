@@ -1,28 +1,19 @@
 package model;
 
 import javax.swing.JOptionPane;
-
 import controller.LatexEditorController;
 import model.strategies.StableVersionsStrategy;
 import model.strategies.VersionsStrategy;
 import model.strategies.VolatileVersionsStrategy;
-//import view.LatexEditorView;
 
 public class VersionsManager {
 	private static VersionsManager instance;
 	private boolean enabled;
 	private VersionsStrategy strategy;
-//	private LatexEditorView latexEditorView;
 	private LatexEditorController latexEditorController;
 
-	// TODO - Remove
-//	public VersionsManager(VersionsStrategy versionsStrategy, LatexEditorView latexEditorView) {
-//		this.strategy = versionsStrategy;
-//		this.latexEditorView = latexEditorView;
-//	}
-//	
 	// Singleton constructor is private
-	private VersionsManager() { instance = null; }	// TODO - correct?
+	private VersionsManager() { instance = null; }
 	
 	public static VersionsManager getInstance() {
 		if (instance == null) {
@@ -33,7 +24,6 @@ public class VersionsManager {
 	
 	public void init(VersionsStrategy versionsStrategy) {
 		this.strategy = versionsStrategy;
-//		this.latexEditorView = LatexEditorView.getInstance();
 		this.latexEditorController = LatexEditorController.getInstance();
 	}
 	
@@ -49,48 +39,7 @@ public class VersionsManager {
 		enabled = false;
 	}
 
-	// TODO - remove (not used)
-//	public void setStrategy(VersionsStrategy strategy) {
-//		this.strategy = strategy;
-//	}
-	
-	// TODO - remove
-//	public void setCurrentVersion(Document document) {
-//		latexEditorView.setCurrentDocument(document);
-//	}
-
-	// TODO - remove
-//	public Document setPreviousVersion() {
-//		return null;
-//	}
-//	
-//	public void rollbackToPreviousVersion() {
-//		
-//	}
-
-	//TODO - remove
-//	public String getType() {
-//		// TODO Auto-generated method stub
-//		return latexEditorView.getType();
-//	}
-
-//	public void saveContents() {
-//		// TODO Auto-generated method stub
-//		latexEditorView.saveContents();
-//	}
-
-//	public void saveToFile() {
-//		// TODO Auto-generated method stub
-//		latexEditorView.saveToFile();
-//	}
-
-//	public void loadFromFile() {
-//		// TODO Auto-generated method stub
-//		latexEditorView.loadFromFile();
-//	}
-
 	public void enableStrategy() {
-//		String strategyType = latexEditorView.getStrategy();
 		String strategyType = latexEditorController.getStrategy();
 		if(strategyType.equals("volatile") && strategy instanceof VolatileVersionsStrategy) {
 			enable();
@@ -114,7 +63,6 @@ public class VersionsManager {
 	}
 
 	public void changeStrategy() {
-//		String strategyType = latexEditorView.getStrategy();
 		String strategyType = latexEditorController.getStrategy();
 		if(strategyType.equals("stable") && strategy instanceof VolatileVersionsStrategy) {
 			VersionsStrategy newStrategy = new StableVersionsStrategy();
@@ -135,7 +83,6 @@ public class VersionsManager {
 	}
 
 	public void rollback() {
-		// TODO Auto-generated method stub
 		if(isEnabled() == false) {
 			JOptionPane.showMessageDialog(null, "Strategy is not enabled", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -146,15 +93,10 @@ public class VersionsManager {
 			}
 			else {
 				strategy.removeVersion();
-//				latexEditorView.setCurrentDocument(doc);
 				latexEditorController.setCurrentDocument(doc);
 			}
 		}
 		
 	}
 
-	// TODO - Remove (not used)
-//	public VersionsStrategy getStrategy() {
-//		return strategy;
-//	}
 }

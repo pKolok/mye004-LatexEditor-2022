@@ -1,21 +1,10 @@
 package controller.commands;
 
-// TODO - remove
-//import java.util.HashMap;
-
 import model.DocumentManager;
 
 public class CommandFactory {
 	private DocumentManager documentManager;
-	// TODO - Remove
-	//	private VersionsManager versionsManager;
-	
-//	public CommandFactory(VersionsManager versionsManager) {
-//		super();
-//		this.versionsManager = versionsManager;
-//		documentManager = new DocumentManager();
-//	}
-	
+
 	public CommandFactory() {
 		documentManager = new DocumentManager();
 	}
@@ -33,10 +22,6 @@ public class CommandFactory {
 		if(type.equals("disableVersionsManagement")) {
 			return new DisableVersionsManagementCommand();
 		}
-		// TODO - remove
-//		if(type.equals("edit")) {
-//			return new EditCommand();
-//		}
 		if(type.equals("enableVersionsManagement")) {
 			return new EnableVersionsManagementCommand();
 		}

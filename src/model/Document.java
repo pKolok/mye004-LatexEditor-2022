@@ -19,22 +19,17 @@ public class Document {
 		this.contents = contents;
 	}
 	
-	
 	public Document() {
-		// TODO Auto-generated constructor stub
 		this.contents = "";
 	}
-
 
 	public String getContents() {
 		return contents;
 	}
 
-
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-
 
 	public void save(String filename) {
 		try {
@@ -43,7 +38,6 @@ public class Document {
 			printWriter.write(contents);
 			printWriter.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +50,6 @@ public class Document {
 		int n = Integer.parseInt(versionID);
 		versionID = (n + 1) + "";
 	}
-
 
 	public String getVersionID() {
 		// TODO Auto-generated method stub

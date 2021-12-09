@@ -1,22 +1,16 @@
 package view;
 
-// TODO - remove
-//import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JRadioButton;
-
-import controller.LatexEditorController;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import controller.LatexEditorController;
 
 public class ChooseTemplate {
 
 	private JFrame frame;
-//	private LatexEditorView latexEditorView;
 	private LatexEditorController latexEditorController;
 	private String previous;
 
@@ -24,16 +18,7 @@ public class ChooseTemplate {
 	 * Create the application.
 	 * @param latexEditorView 
 	 */
-	// TODO - remove
-	//	public ChooseTemplate(LatexEditorView latexEditorView, String previous) {
-//		this.latexEditorView = latexEditorView;
-//		this.previous = previous;
-//		initialize();
-//		frame.setVisible(true);
-//	}
-	
 	public ChooseTemplate( String previous) {
-//		this.latexEditorView = LatexEditorView.getInstance();
 		this.latexEditorController = LatexEditorController.getInstance();
 		this.previous = previous;
 		initialize();
@@ -41,7 +26,7 @@ public class ChooseTemplate {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
 	private void diselectRadioButtons(JRadioButton radioButton1, JRadioButton radioButton2, JRadioButton radioButton3,JRadioButton radioButton4) {
 		if(radioButton1.isSelected()) {
@@ -106,29 +91,23 @@ public class ChooseTemplate {
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(book.isSelected()) {
-//					latexEditorView.setType("bookTemplate");
 					latexEditorController.setType("bookTemplate");
 				}
 				else if(report.isSelected()) {
-//					latexEditorView.setType("reportTemplate");
 					latexEditorController.setType("reportTemplate");
 				}
 				else if(article.isSelected()) {
-//					latexEditorView.setType("articleTemplate");
 					latexEditorController.setType("articleTemplate");
 				}
 				else if(letter.isSelected()) {
-//					latexEditorView.setType("letterTemplate");
 					latexEditorController.setType("letterTemplate");
 				}
 				else {
-//					latexEditorView.setType("emptyTemplate");
 					latexEditorController.setType("emptyTemplate");
 				}
 
-//				latexEditorView.getController().enact("create");
 				latexEditorController.enact("create");
-//				MainWindow mainWindow = new MainWindow(latexEditorView);
+				@SuppressWarnings("unused")
 				MainWindow mainWindow = new MainWindow();
 				frame.dispose();
 			}
@@ -140,11 +119,12 @@ public class ChooseTemplate {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(previous.equals("main")) {
-//					MainWindow mainWindow = new MainWindow(latexEditorView);
+					@SuppressWarnings("unused")
 					MainWindow mainWindow = new MainWindow();
 					frame.dispose();
 				}
 				else {
+					@SuppressWarnings("unused")
 					OpeningWindow openingWindow = new OpeningWindow();
 					frame.dispose();
 				}

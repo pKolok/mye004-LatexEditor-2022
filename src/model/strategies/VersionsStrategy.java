@@ -1,7 +1,6 @@
 package model.strategies;
 
 import java.util.List;
-
 import model.Document;
 
 public interface VersionsStrategy {
