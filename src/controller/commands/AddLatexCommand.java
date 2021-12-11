@@ -38,7 +38,7 @@ public class AddLatexCommand implements Command  {
 				contents = before + latexSyntax.get(key) + after;
 		
 		latexEditorController.setText(contents);
-		latexEditorController.enact("addLatex");
+		execute();
 		editorPane.setText(contents);
 	}
 	
@@ -46,8 +46,8 @@ public class AddLatexCommand implements Command  {
 		latexSyntax.put("chapter", "\n\\chapter{...}"+"\n");
 		latexSyntax.put("section", "\n\\section{...}"+"\n");
 		latexSyntax.put("subsection", "\n\\subsection{...}"+"\n");
+		latexSyntax.put("subsubsection", "\n\\subsubsection{...}"+"\n");
 		latexSyntax.put("enumerate", "\\begin{enumerate}\n"+
-									"\\item ...\n"+
 									"\\item ...\n"+
 									"\\end{enumerate}\n");
 		latexSyntax.put("itemize", "\\begin{itemize}\n"+

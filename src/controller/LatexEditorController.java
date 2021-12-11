@@ -17,7 +17,8 @@ public class LatexEditorController{
 										"changeVersionsStrategy", 
 										"enableVersionsManagement",
 										"disableVersionsManagement", 
-										"rollbackToPreviousVersion" };
+										"rollbackToPreviousVersion",
+										"saveAsHTML"};
 	private Document currentDocument;
 	private String strategy;
 	private String type;

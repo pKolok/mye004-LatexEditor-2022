@@ -107,6 +107,26 @@ public class MainWindow {
 		});
 		mnFile.add(mntmSaveFile);
 		
+		JMenuItem mntmSaveAsHTMLFile = new JMenuItem("Save As HTML");
+		mntmSaveAsHTMLFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser filechooser = new JFileChooser();
+				int option = filechooser.showSaveDialog(null);
+				if(option == JFileChooser.APPROVE_OPTION) {
+					String filename = filechooser.getSelectedFile().toString();
+					if(filename.endsWith(".html") == false) {
+						filename = filename+".html";
+					}
+					latexEditorController.setFilename(filename);
+					latexEditorController.getCurrentDocument().setContents(
+							editorPane.getText());
+					latexEditorController.enact("saveAsHTML");
+				}
+				
+			}
+		});
+		mnFile.add(mntmSaveAsHTMLFile);
+		
 		JMenuItem mntmExit = new JMenuItem("Exit");
 		mnFile.add(mntmExit);
 		
