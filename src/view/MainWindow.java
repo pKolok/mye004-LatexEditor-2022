@@ -49,6 +49,7 @@ public class MainWindow {
 		JMenuItem mntmNewFile = new JMenuItem("New file");
 		mntmNewFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				@SuppressWarnings("unused")
 				ChooseTemplate chooseTemplate = new ChooseTemplate("main");
 				frame.dispose();
 			}

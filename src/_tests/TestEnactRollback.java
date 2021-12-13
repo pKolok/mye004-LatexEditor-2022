@@ -8,21 +8,32 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Document;
-import model.DocumentManager;
+import controller.LatexEditorController;
+import controller.commands.AddLatexCommand;
+import model.VersionsManager;
+import model.strategies.VersionsStrategy;
+import model.strategies.VolatileVersionsStrategy;
 
-public class TestCreateDocument {
-	private static DocumentManager documentManager;
+public class TestEnactRollback {
+	private static LatexEditorController controller;
 	private static String reportContents, bookContents, articleContents,
-							letterContents, emptyContents;
+		letterContents, emptyContents;
+	private static AddLatexCommand addLatexCommand;
 
-	@BeforeClass	// runs once, before any other method of the test class
+	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		VersionsStrategy versionsStrategy = new VolatileVersionsStrategy();
+		VersionsManager versionsManager = VersionsManager.getInstance();
+		versionsManager.init(versionsStrategy);
+		controller = LatexEditorController.getInstance();
+		controller.setType("bookTemplate");
+		controller.enact("create");
+		addLatexCommand = new AddLatexCommand();
+		
 		assignContents();
-		documentManager = new DocumentManager();
 	}
 
-	@AfterClass		//  runs after all the tests have been run.
+	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
@@ -33,7 +44,7 @@ public class TestCreateDocument {
 	@After		// runs after every test case 
 	public void tearDown() throws Exception {
 	}
-	
+
 	private static void assignContents() {
 		reportContents = "\\documentclass[11pt,a4paper]{report}\n\n"+
 
@@ -137,58 +148,64 @@ public class TestCreateDocument {
 					"\\end{document}\n";
 		emptyContents = "";
 	}
+	
+	@Test
+	public void testEnactRollBackVolatile() {
+		controller.setStrategy("volatile");
+		controller.enact("enableVersionsManagement");
+		
+		controller.setText(reportContents);
+		addLatexCommand.execute();
+		String replacedContents = controller.getCurrentDocument().getContents();
+		assertEquals(reportContents, replacedContents);
+		
+		controller.enact("rollbackToPreviousVersion");
+		String rolledBackContents = controller.getCurrentDocument().getContents();
+		assertEquals(bookContents, rolledBackContents);
+	}
 
-	
-	//////////////////////////////////////////////////////////
-	//////////////////////  tests  ///////////////////////////
-	//////////////////////////////////////////////////////////
-	
 	@Test
-	public void testCreateDocumentReportType() {
-		//fail("Not yet implemented");
-		String type = "reportTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(reportContents, document.getContents());
+	public void testEnactRollBackStable() {
+		controller.setStrategy("stable");
+		controller.enact("enableVersionsManagement");
+		
+		controller.setText(articleContents);
+		addLatexCommand.execute();
+		String replacedContents = controller.getCurrentDocument().getContents();
+		assertEquals(articleContents, replacedContents);
+		
+		controller.enact("rollbackToPreviousVersion");
+		String rolledBackContents = controller.getCurrentDocument().getContents();
+		assertEquals(bookContents, rolledBackContents);
 	}
 	
 	@Test
-	public void testCreateDocumentBookType() {
-		String type = "bookTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(bookContents, document.getContents());
+	public void testEnactRollBackVolatileEmpty() {
+		controller.setStrategy("volatile");
+		controller.enact("enableVersionsManagement");
+		
+		controller.setText(emptyContents);
+		addLatexCommand.execute();
+		String replacedContents = controller.getCurrentDocument().getContents();
+		assertEquals(emptyContents, replacedContents);
+		
+		controller.enact("rollbackToPreviousVersion");
+		String rolledBackContents = controller.getCurrentDocument().getContents();
+		assertEquals(bookContents, rolledBackContents);
 	}
 	
 	@Test
-	public void testCreateDocumentArticleType() {
-		String type = "articleTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(articleContents, document.getContents());
+	public void testEnactRollBackStableEmpty() {
+		controller.setStrategy("stable");
+		controller.enact("enableVersionsManagement");
+		
+		controller.setText(emptyContents);
+		addLatexCommand.execute();
+		String replacedContents = controller.getCurrentDocument().getContents();
+		assertEquals(emptyContents, replacedContents);
+		
+		controller.enact("rollbackToPreviousVersion");
+		String rolledBackContents = controller.getCurrentDocument().getContents();
+		assertEquals(bookContents, rolledBackContents);
 	}
-	
-	@Test
-	public void testCreateDocumentLetterType() {
-		String type = "letterTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(letterContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentEmptyType() {
-		String type = "emptyTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(emptyContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentInvalideType() {
-		String type = "";
-		try {
-			@SuppressWarnings("unused")
-			Document document = documentManager.createDocument(type);
-			assert(false);
-		} catch (NullPointerException e){
-			assert(true);
-		}
-	}	
-
 }

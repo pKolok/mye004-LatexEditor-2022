@@ -310,6 +310,4 @@ public class Document {
 				|| line.contains("\\hline")
 				|| line.contains("\\end{tabular}");
 	}
-	
-	
 }

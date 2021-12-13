@@ -8,21 +8,22 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Document;
-import model.DocumentManager;
+import controller.LatexEditorController;
 
-public class TestCreateDocument {
-	private static DocumentManager documentManager;
+public class TestEnactLoad {
+	private static LatexEditorController controller;
 	private static String reportContents, bookContents, articleContents,
-							letterContents, emptyContents;
+		letterContents, emptyContents;
 
-	@BeforeClass	// runs once, before any other method of the test class
+	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		controller = LatexEditorController.getInstance();
+
 		assignContents();
-		documentManager = new DocumentManager();
+		saveAllTemplatesToDisk();
 	}
 
-	@AfterClass		//  runs after all the tests have been run.
+	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
@@ -33,7 +34,7 @@ public class TestCreateDocument {
 	@After		// runs after every test case 
 	public void tearDown() throws Exception {
 	}
-	
+
 	private static void assignContents() {
 		reportContents = "\\documentclass[11pt,a4paper]{report}\n\n"+
 
@@ -137,58 +138,59 @@ public class TestCreateDocument {
 					"\\end{document}\n";
 		emptyContents = "";
 	}
-
 	
-	//////////////////////////////////////////////////////////
-	//////////////////////  tests  ///////////////////////////
-	//////////////////////////////////////////////////////////
-	
-	@Test
-	public void testCreateDocumentReportType() {
-		//fail("Not yet implemented");
-		String type = "reportTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(reportContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentBookType() {
-		String type = "bookTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(bookContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentArticleType() {
-		String type = "articleTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(articleContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentLetterType() {
-		String type = "letterTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(letterContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentEmptyType() {
-		String type = "emptyTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(emptyContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentInvalideType() {
-		String type = "";
-		try {
-			@SuppressWarnings("unused")
-			Document document = documentManager.createDocument(type);
-			assert(false);
-		} catch (NullPointerException e){
-			assert(true);
+	private static void saveAllTemplatesToDisk()
+	{
+		String template[] = {"bookTemplate", "reportTemplate", "articleTemplate"
+				, "letterTemplate", "emptyTemplate"};
+		String filename[] = {"book.tex", "report.tex", "article.tex", 
+				"letter.tex", "empty.tex"};
+		
+		for (int i = 0; i < 5; ++i) {
+			controller.setFilename(filename[i]);
+			controller.setType(template[i]);
+			controller.enact("create");
+			controller.enact("save");
 		}
-	}	
+	}
+	
+	@Test
+	public void testEnactLoadBook() {
+		controller.setFilename("book.tex");
+		controller.enact("load");
+		String loadedContents = controller.getCurrentDocument().getContents();
+		assertEquals(bookContents, loadedContents);
+	}
 
+	@Test
+	public void testEnactLoadReport() {
+		controller.setFilename("report.tex");
+		controller.enact("load");
+		String loadedContents = controller.getCurrentDocument().getContents();
+		assertEquals(reportContents, loadedContents);
+	}
+	
+	@Test
+	public void testEnactLoadArticle() {
+		controller.setFilename("article.tex");
+		controller.enact("load");
+		String loadedContents = controller.getCurrentDocument().getContents();
+		assertEquals(articleContents, loadedContents);
+	}
+	
+	@Test
+	public void testEnactLoadLetter() {
+		controller.setFilename("letter.tex");
+		controller.enact("load");
+		String loadedContents = controller.getCurrentDocument().getContents();
+		assertEquals(letterContents, loadedContents);
+	}
+	
+	@Test
+	public void testEnactLoadEmpty() {
+		controller.setFilename("empty.tex");
+		controller.enact("load");
+		String loadedContents = controller.getCurrentDocument().getContents();
+		assertEquals(emptyContents, loadedContents);
+	}
 }

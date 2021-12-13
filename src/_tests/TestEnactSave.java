@@ -2,27 +2,32 @@ package _tests;
 
 import static org.junit.Assert.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Document;
-import model.DocumentManager;
+import controller.LatexEditorController;
 
-public class TestCreateDocument {
-	private static DocumentManager documentManager;
+public class TestEnactSave {
+	private static LatexEditorController controller;
 	private static String reportContents, bookContents, articleContents,
-							letterContents, emptyContents;
+		letterContents, emptyContents;
 
-	@BeforeClass	// runs once, before any other method of the test class
+	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		controller = LatexEditorController.getInstance();
+		controller.setFilename("test.tex");
+		
 		assignContents();
-		documentManager = new DocumentManager();
 	}
 
-	@AfterClass		//  runs after all the tests have been run.
+	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
@@ -33,7 +38,7 @@ public class TestCreateDocument {
 	@After		// runs after every test case 
 	public void tearDown() throws Exception {
 	}
-	
+
 	private static void assignContents() {
 		reportContents = "\\documentclass[11pt,a4paper]{report}\n\n"+
 
@@ -137,58 +142,64 @@ public class TestCreateDocument {
 					"\\end{document}\n";
 		emptyContents = "";
 	}
-
 	
-	//////////////////////////////////////////////////////////
-	//////////////////////  tests  ///////////////////////////
-	//////////////////////////////////////////////////////////
-	
-	@Test
-	public void testCreateDocumentReportType() {
-		//fail("Not yet implemented");
-		String type = "reportTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(reportContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentBookType() {
-		String type = "bookTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(bookContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentArticleType() {
-		String type = "articleTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(articleContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentLetterType() {
-		String type = "letterTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(letterContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentEmptyType() {
-		String type = "emptyTemplate";
-		Document document = documentManager.createDocument(type);
-		assertEquals(emptyContents, document.getContents());
-	}
-	
-	@Test
-	public void testCreateDocumentInvalideType() {
-		String type = "";
+	public static String loadFromFile(String filename) {
+		String fileContents = "";
 		try {
-			@SuppressWarnings("unused")
-			Document document = documentManager.createDocument(type);
-			assert(false);
-		} catch (NullPointerException e){
-			assert(true);
+			Scanner scanner = new Scanner(new FileInputStream(filename));
+			while(scanner.hasNextLine()) {
+				fileContents = fileContents + scanner.nextLine() + "\n";
+			}
+			return fileContents;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-	}	
+		return "";
+	}
+	
+	@Test
+	public void testEnactSaveBook() {
+		controller.setType("bookTemplate");
+		controller.enact("create");
+		controller.enact("save");
+		String savedContents = loadFromFile("test.tex");
+		assertEquals(bookContents, savedContents);
+	}
+	
+	@Test
+	public void testEnactSaveReport() {
+		controller.setType("reportTemplate");
+		controller.enact("create");
+		controller.enact("save");
+		String savedContents = loadFromFile("test.tex");
+		assertEquals(reportContents, savedContents);
+	}
+	
+	@Test
+	public void testEnactSaveArticle() {
+		controller.setType("articleTemplate");
+		controller.enact("create");
+		controller.enact("save");
+		String savedContents = loadFromFile("test.tex");
+		assertEquals(articleContents, savedContents);
+	}
+	
+	@Test
+	public void testEnactSaveLetter() {
+		controller.setType("letterTemplate");
+		controller.enact("create");
+		controller.enact("save");
+		String savedContents = loadFromFile("test.tex");
+		assertEquals(letterContents, savedContents);
+	}
+	
+	@Test
+	public void testEnactSaveEmpty() {
+		controller.setType("emptyTemplate");
+		controller.enact("create");
+		controller.enact("save");
+		String savedContents = loadFromFile("test.tex");
+		assertEquals(emptyContents, savedContents);
+	}
 
 }
