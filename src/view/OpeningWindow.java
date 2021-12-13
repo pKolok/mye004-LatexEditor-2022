@@ -2,6 +2,9 @@ package view;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+
+import controller.LatexEditorController;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import java.awt.event.ActionListener;
@@ -48,9 +51,10 @@ public class OpeningWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 400, 300);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
 		
 		JButton btnCreateNewDocument = new JButton("Create New Document");
 		btnCreateNewDocument.addActionListener(new ActionListener() {
@@ -60,18 +64,58 @@ public class OpeningWindow {
 				frame.dispose();
 			}
 		});
-		btnCreateNewDocument.setBounds(89, 26, 278, 36);
+		btnCreateNewDocument.setBounds(60, 30, 280, 36);
 		frame.getContentPane().add(btnCreateNewDocument);
+		
 		
 		JButton btnOpenExistingDocument = new JButton("Open Existing Document");
 		btnOpenExistingDocument.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(null);
+				JFileChooser filechooser = new JFileChooser();
+//				filechooser.showOpenDialog(null);
+			
+				int option = filechooser.showOpenDialog(null);
+				if(option == JFileChooser.APPROVE_OPTION) {
+					String filename = filechooser.getSelectedFile().toString();
+					LatexEditorController latexEditorController = LatexEditorController.getInstance();
+					latexEditorController.setFilename(filename);
+					latexEditorController.enact("load");
+					latexEditorController.setType("emptyTemplate");
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.getEditorPane().setText(
+							latexEditorController.getCurrentDocument().getContents());
+					frame.dispose();
+				}
+				
 			}
 		});
-		btnOpenExistingDocument.setBounds(89, 92, 278, 36);
+		btnOpenExistingDocument.setBounds(60, 80, 280, 36);
 		frame.getContentPane().add(btnOpenExistingDocument);
+		
+		
+		JButton btnOpenHTMLDocument = new JButton("Open HTML Document");
+		btnOpenHTMLDocument.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser filechooser = new JFileChooser();
+			
+				int option = filechooser.showOpenDialog(null);
+				if(option == JFileChooser.APPROVE_OPTION) {
+					String filename = filechooser.getSelectedFile().toString();
+					LatexEditorController latexEditorController = LatexEditorController.getInstance();
+					latexEditorController.setFilename(filename);
+					latexEditorController.enact("load");
+//					latexEditorController.setType("emptyTemplate");
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.getEditorPane().setText(
+							latexEditorController.getCurrentDocument().getContents());
+					frame.dispose();
+				}
+				
+			}
+		});
+		btnOpenHTMLDocument.setBounds(60, 130, 280, 36);
+		frame.getContentPane().add(btnOpenHTMLDocument);
+		
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -79,7 +123,7 @@ public class OpeningWindow {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(99, 169, 268, 25);
+		btnExit.setBounds(60, 190, 280, 25);
 		frame.getContentPane().add(btnExit);
 	}
 }

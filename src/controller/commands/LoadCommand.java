@@ -43,6 +43,11 @@ public class LoadCommand implements Command {
 		}
 		else if(fileContents.startsWith("\\documentclass{letter}")) {
 			latexEditorController.setType("letterTemplate");
+		} else if (fileContents.contains("<html>")) {
+			latexEditorController.setType("htmlDocument");
+			currentDocument.setContents("");
+			currentDocument.setHtmlContents(fileContents);
+			currentDocument.convertToLateX();
 		}
 	}
 

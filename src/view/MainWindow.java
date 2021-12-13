@@ -30,6 +30,12 @@ public class MainWindow {
 		frame.setVisible(true);
 	}
 
+	
+	public JEditorPane getEditorPane() {
+		return editorPane;
+	}
+	
+	
 	/**
 	 * Initialise the contents of the frame.
 	 */
@@ -89,6 +95,26 @@ public class MainWindow {
 			}
 		});
 		mnFile.add(mntmLoadFile);
+		
+		
+		JMenuItem mntmLoadHTMLFile = new JMenuItem("Load HTML file");
+		mntmLoadHTMLFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser filechooser = new JFileChooser();
+				int option = filechooser.showOpenDialog(null);
+				if(option == JFileChooser.APPROVE_OPTION) {
+					String filename = filechooser.getSelectedFile().toString();
+					
+					latexEditorController.setFilename(filename);
+					latexEditorController.enact("load");
+					mnCommands.setEnabled(true);
+					addChapter.setEnabled(true);
+					editorPane.setText(latexEditorController.getCurrentDocument().getContents());
+				}
+			}
+		});
+		mnFile.add(mntmLoadHTMLFile);
+		
 		
 		JMenuItem mntmSaveFile = new JMenuItem("Save file");
 		mntmSaveFile.addActionListener(new ActionListener() {
@@ -277,4 +303,10 @@ public class MainWindow {
 		
 		editorPane.setText(latexEditorController.getCurrentDocument().getContents());
 	}
+	
+	
+	
+	
+	
+	
 }
