@@ -9,6 +9,7 @@ public class CommandFactory {
 		documentManager = new DocumentManager();
 	}
 
+	// TODO Instead of a big if structure i could use "Java reflection"
 	public Command createCommand(String type) {
 		if(type.equals("addLatex")) {
 			return new AddLatexCommand();

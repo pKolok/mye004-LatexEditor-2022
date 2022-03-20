@@ -80,7 +80,7 @@ public class OpeningWindow {
 					LatexEditorController latexEditorController = LatexEditorController.getInstance();
 					latexEditorController.setFilename(filename);
 					latexEditorController.enact("load");
-					latexEditorController.setType("emptyTemplate");
+//					latexEditorController.setType("emptyTemplate");
 					MainWindow mainWindow = new MainWindow();
 					mainWindow.getEditorPane().setText(
 							latexEditorController.getCurrentDocument().getContents());

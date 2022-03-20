@@ -70,7 +70,7 @@ public class HtmlExporter {
 			contentsHTML += "\n<body>\n";
 			contentsHTML += paragraph(bold(alignCenter(font(title, 6))));
 			contentsHTML += newLines(2) + authorHTML;
-			contentsHTML += paragraph(alignCenter(date));
+//			contentsHTML += paragraph(alignCenter(date));
 		} else if (line.contains("\\chapter")){
 			contentsHTML += "\n" + surroundWith(wordWithinCurlyBrackets(line),"H1");
 		} else if (line.contains("\\section")){
